@@ -1,7 +1,8 @@
 # oh-my-repos
 ## Installation
  1. [Install myrepos](https://myrepos.branchable.com/install/)
- 2. Run the installation script:
+ 2. Optionally edit [config.json](config.json) to specify a default parent directory.
+ 3. Run the installation script:
     ``` sh
     sudo ./install.py
     ```
@@ -12,7 +13,7 @@ Pull all git repositories in a parent directory in parallel:
 pull --dir="/path/to/your/repos/"
 ```
 
-You can edit the [`~/.config/oh-my-repos/config.json`](config.json) file to specify a default path in order to run the script without any argument:
+If you specified a default path in [`~/.config/oh-my-repos/config.json`](config.json) file, you can run the script without an argument:
 ```
 pull
 ```
