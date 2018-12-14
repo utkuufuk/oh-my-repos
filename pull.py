@@ -7,7 +7,7 @@ import sys
 import os
 
 TIMEOUT_SECS = 15
-CONFIG_PATH = str(Path.home()) + '/.config/oh-my-repos/config.json'
+CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
 MR_CONFIG_PATH = str(Path.home()) + '/.mrconfig'
 
 def isGitDir(path):
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     try:
         config = json.load(open(CONFIG_PATH))
     except FileNotFoundError:
-        print('Configuration file not found.', file=sys.stderr)
+        print('Configuration file not found at', CONFIG_PATH, file=sys.stderr)
         sys.exit(1)
 
     parser = argparse.ArgumentParser()
