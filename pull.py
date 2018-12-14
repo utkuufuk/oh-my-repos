@@ -10,12 +10,14 @@ TIMEOUT_SECS = 15
 CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
 
 if __name__ == '__main__':
+    # read configuration file
     try:
         config = json.load(open(CONFIG_PATH))
     except FileNotFoundError:
-        print('Configuration file not found at', CONFIG_PATH, file=sys.stderr)
+        print('Config file not found at', CONFIG_PATH + ', try reinstalling.', file=sys.stderr)
         sys.exit(1)
 
+    # read program argument if specified
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default=config['dir'], help='Root directory of Git repositories.')
     args = parser.parse_args()
