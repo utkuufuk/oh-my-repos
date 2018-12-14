@@ -19,7 +19,7 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
     ```
 
 ## Usage
-If you specified a default path in [`~/.oh-my-repos.json`](config.json), you can run the script without an argument:
+If you specified a default path in `~/.oh-my-repos.json`, you can run the script without an argument:
 ```
 pull
 ```
