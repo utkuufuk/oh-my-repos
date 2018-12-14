@@ -22,16 +22,17 @@ if __name__ == '__main__':
     parser.add_argument('--dir', type=str, default=config['dir'], help='Root directory of Git repositories.')
     args = parser.parse_args()
 
+    # remember the current directory
+    initialDir = os.getcwd()
+
     # discover & register repositories
     repoDirs = [f.path for f in os.scandir(args.dir) if f.is_dir() and os.path.isdir(f.path + "/.git")]
     for repo in repoDirs:
-        call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w')) == 0
+        os.chdir(repo)
+        call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w'))
 
-    # temporarily change working directory to user home
-    initialDir = os.getcwd()
+    # run myrepos command from user home directory
     os.chdir(str(Path.home()))
-
-    # run myrepos command
     process = Popen("mr -j{0} update".format(len(repoDirs)).split(), stdout=PIPE)
     try:
         output, error = process.communicate(timeout=TIMEOUT_SECS)
