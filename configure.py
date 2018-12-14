@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 
 CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
-print("Git root set:", sys.argv[1])
+if sys.argv[1] != "":
+    print("Git root set:", sys.argv[1])
 config = {'dir': sys.argv[1]}
 with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
     json.dump(config, f, indent=4, ensure_ascii=False)
