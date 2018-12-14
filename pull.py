@@ -8,22 +8,9 @@ import os
 
 TIMEOUT_SECS = 15
 CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
-MR_CONFIG_PATH = str(Path.home()) + '/.mrconfig'
 
 def isGitDir(path):
     return call(['git', '-C', path, 'status'], stderr=STDOUT, stdout = open(os.devnull, 'w')) == 0
-
-def getRemote(path):
-    process = Popen("git -C {0} remote -v".format(path).split(), stdout=PIPE)
-    try:
-        output, error = process.communicate(timeout=TIMEOUT_SECS)
-        if error:
-            raise Exception(error)
-    except:
-        process.kill()
-        output, error = process.communicate()
-    output = str(output)
-    return output[output.find("git@"):output.find(" (fetch)")]
 
 if __name__ == '__main__':
     try:
@@ -35,13 +22,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', type=str, default=config['dir'], help='Root directory of Git repositories.')
     args = parser.parse_args()
-    repoDirs = [f.path for f in os.scandir(args.dir) if f.is_dir() and isGitDir(f.path)]
 
-    # populate .mrconfig file with local repos
-    with open(MR_CONFIG_PATH, 'w', encoding='utf-8') as f:
-        for repo in repoDirs:
-            name = repo.replace(str(Path.home()), "")[1:]
-            f.write("\n[{0}]\ncheckout = git clone '{1}' '{2}'\n".format(name, getRemote(repo), name[(name.find("/")) + 1:]))
+    # discover & register repositories
+    repoDirs = [f.path for f in os.scandir(args.dir) if f.is_dir() and isGitDir(f.path)]
+    for repo in repoDirs:
+        call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w')) == 0
 
     # temporarily change working directory to user home
     initialDir = os.getcwd()
