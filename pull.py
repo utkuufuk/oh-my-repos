@@ -9,9 +9,6 @@ import os
 TIMEOUT_SECS = 15
 CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
 
-def isGitDir(path):
-    return call(['git', '-C', path, 'status'], stderr=STDOUT, stdout = open(os.devnull, 'w')) == 0
-
 if __name__ == '__main__':
     try:
         config = json.load(open(CONFIG_PATH))
@@ -24,7 +21,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # discover & register repositories
-    repoDirs = [f.path for f in os.scandir(args.dir) if f.is_dir() and isGitDir(f.path)]
+    repoDirs = [f.path for f in os.scandir(args.dir) if f.is_dir() and os.path.isdir(f.path + "/.git")]
     for repo in repoDirs:
         call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w')) == 0
 
