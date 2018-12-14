@@ -1,4 +1,10 @@
 # oh-my-repos
+A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that makes pulling your Git repositories even easier.
+
+## Features
+ * **Works from everywhere;** you don't have to `cd` to your `$HOME` directory to use it.
+ * **Configuration is simple and easy;** you don't have to `mr register` your repositories one by one.
+ * **Implicitly parallel;** launches as many processes as the number of repositories to pull.
 ## Setting Up
  1. [Install myrepos](https://myrepos.branchable.com/install/)
  2. Run the installation script, passing the directory of your Git repositories as an (optional) argument:
