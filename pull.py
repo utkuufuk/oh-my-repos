@@ -21,16 +21,15 @@ if __name__ == '__main__':
     # get saved directories from configuration file if any
     savedDirs = set()
     try:
-        savedDirs = {s for s in json.load(open(CONFIG_PATH))['dir'] if s != ""}
+        savedDirs = {s for s in json.load(open(CONFIG_PATH))['dirs'] if s != ""}
     except FileNotFoundError:
         print("Configuration file not found.")
 
     if args.dir == None:
         if args.save:
-            raise ValueError("--save flag can only be used along with the --dir argument")
+            raise Exception("--save flag can only be used along with the --dir argument")
         if len(savedDirs) == 0:
-            print("Could not find any saved directories. Using the current directory as Git Root.")
-            savedDirs.add(os.getcwd())
+            raise Exception("Could not find any saved directories in {0}".format(CONFIG_PATH))
     else:
         # convert input directory to absolute path & add it to the set of retrieved directories
         inputDir = os.path.abspath(args.dir.replace("~", str(Path.home())))
@@ -38,7 +37,7 @@ if __name__ == '__main__':
         if args.save:
             # add the input directory to the existing set of saved directories in the configuration file
             with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
-                json.dump({"dir":list(savedDirs)}, f, indent=4, ensure_ascii=False)
+                json.dump({"dirs":list(savedDirs)}, f, indent=4, ensure_ascii=False)
                 print("Input directory appended to existing directories in configuration file:", inputDir)
 
     # remember the current directory
