@@ -2,29 +2,33 @@
 A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that makes pulling your Git repositories even easier.
 
 ## Features
- * **Works from everywhere;** you don't have to `cd` to your `$HOME` directory to use it.
- * **Configuration is simple and easy;** you don't have to `mr register` your repositories one by one.
- * **Implicitly parallel;** launches as many processes as the number of repositories to pull.
+ * **Works from any directory.** You don't have to `cd` to your `$HOME` directory to use it.
+ * **Usage is simple and easy.** You don't have to `mr register` your repositories one by one, just type `pull.`
+ * **Parallel by default.** You don't have to explicitly tell it to use multiprocessing.
 ## Setting Up
  1. [Install myrepos](https://myrepos.branchable.com/install/)
- 2. Run the installation script, passing the directory of your Git repositories as an (optional) argument:
+ 2. Run the installation script:
     ``` sh
-    ./install.sh /path/to/your/repos
+    ./install.sh
     ```
- 3. You can always change your Git root directory in `~/.oh-my-repos.json`
+ 3. You can always manually configure your Git root directories in `~/.oh-my-repos.json:`
     ``` json
     {
-        "dir": "/path/to/your/repos"
+        "dirs": [
+            "/path/to/your/repos",
+            "/path/to/your/other/repos"
+        ]
     }
     ```
 
 ## Usage
-If you specified a default path in `~/.oh-my-repos.json`, you can run the script without an argument:
-```
-pull
-```
-
-You can also run it for arbitrary directories: 
 ``` sh
+# Pulls all git repos inside each path specified in ~/.oh-my-repos.json
+pull
+
+# Pulls all git repos in the given path in addition to each path specified in ~/.oh-my-repos.json
 pull --dir="/path/to/other/repos/"
+
+# Same as above, except now it also inserts the given path in ~/.oh-my-repos.json
+pull --dir="/path/to/other/repos/" --save
 ```
