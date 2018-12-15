@@ -23,18 +23,18 @@ pip3 uninstall ohmyrepos
 
 ## Usage
 ``` sh
-# Pulls all git repos inside each path specified in ~/.oh-my-repos.json
+# Pulls all git repos inside each path specified in ~/.ohmyrepos.json
 pull
 
-# Pulls all git repos in the given path in addition to each path specified in ~/.oh-my-repos.json
+# Pulls all git repos in the given path in addition to each path specified in ~/.ohmyrepos.json
 pull -d="/path/to/other/repos/"
 
-# Same as above, except now it also adds input path to saved directories in ~/.oh-my-repos.json
+# Same as above, except now it also adds input path to saved directories in ~/.ohmyrepos.json
 pull -d="/path/to/other/repos/" -s
 ```
 
 ## Configuration
-Just after the first execution of a command with `-s` (or `--save`) flag, the configuration file `.oh-my-repos.json` will be created inside your `$HOME` directory. 
+Just after the first execution of a command with `-s` (or `--save`) flag, the configuration file `.ohmyrepos.json` will be created inside your `$HOME` directory. 
 You can always manually edit your saved directories from there:
 ``` json
     {

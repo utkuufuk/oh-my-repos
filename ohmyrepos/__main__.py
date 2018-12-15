@@ -8,7 +8,7 @@ import os
 
 CONCURRENT_JOBS = 5
 TIMEOUT_SECS = 15
-CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
+CONFIG_PATH = str(Path.home()) + "/.ohmyrepos.json"
 
 def main():
     # read program arguments
