@@ -9,16 +9,17 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
  1. [Install myrepos](https://myrepos.branchable.com/install/)
  2. Run
     ``` sh 
-    ./install.sh
-    ``` 
-    or
-    ``` sh 
+    # normal installation
     pip3 install .
+    ```
+    ``` sh
+    # development mode installation
+    pip install -e .
     ```
  
 #### Uninstall 
 ```
-pip3 uninstall ohmyrepos
+./uninstall.sh
 ```
 
 ## Usage
