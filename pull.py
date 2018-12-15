@@ -40,10 +40,8 @@ if __name__ == '__main__':
                 json.dump({"dirs":list(savedDirs)}, f, indent=4, ensure_ascii=False)
                 print("Input directory appended to existing directories in configuration file:", inputDir)
 
-    # remember the current directory
-    initialDir = os.getcwd()
+    # delete .mrconfig if it exists
     try:
-        # delete .mrconfig if exists
         os.remove(str(Path.home()) + "/.mrconfig")
     except OSError:
         pass
@@ -65,6 +63,3 @@ if __name__ == '__main__':
     except:
         process.kill()
         process.communicate()
-
-    # go back to initial directory
-    os.chdir(initialDir)
