@@ -10,7 +10,7 @@ CONCURRENT_JOBS = 5
 TIMEOUT_SECS = 15
 CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
 
-if __name__ == '__main__':
+def main():
     # read program arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--dir', type=str, help='root directory of Git repositories')
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     except UserWarning as w:
         print(str(w), "\n")
         parser.print_help()
-        sys.exit(1)
+        return
 
     # delete .mrconfig if it exists
     try:
@@ -68,3 +68,6 @@ if __name__ == '__main__':
     except:
         process.kill()
         process.communicate()
+
+if __name__ == '__main__':
+    main()

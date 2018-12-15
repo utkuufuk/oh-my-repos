@@ -1,4 +1,4 @@
-# oh-my-repos
+# Oh My Repos
 A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that makes pulling your Git repositories even easier.
 
 ## Features
@@ -11,14 +11,9 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
     ``` sh
     ./install.sh
     ```
- 3. You can always manually configure your Git root directories in `~/.oh-my-repos.json:`
-    ``` json
-    {
-        "dirs": [
-            "/path/to/your/repos",
-            "/path/to/your/other/repos"
-        ]
-    }
+ 3. Uninstall:
+    ``` sh
+    ./uninstall.sh
     ```
 
 ## Usage
@@ -32,3 +27,17 @@ pull -d="/path/to/other/repos/"
 # Same as above, except now it also adds input path to saved directories in ~/.oh-my-repos.json
 pull -d="/path/to/other/repos/" -s
 ```
+
+## Configuration
+Just after the first execution of a command with `-s` or `--save` flag, the configuration file `.oh-my-repos.json` will be created inside your `$HOME` directory. 
+You can always manually edit your saved directories from there:
+``` json
+    {
+        "dirs": [
+            "/path/to/your/repos",
+            "/path/to/your/other/repos"
+        ]
+    }
+```
+
+
