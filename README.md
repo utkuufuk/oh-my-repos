@@ -7,14 +7,19 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
  * **Parallel by default.** You don't have to explicitly tell it to use multiprocessing.
 ## Setting Up
  1. [Install myrepos](https://myrepos.branchable.com/install/)
- 2. Run the installation script:
-    ``` sh
+ 2. Run
+    ``` sh 
     ./install.sh
+    ``` 
+    or
+    ``` sh 
+    pip3 install .
     ```
- 3. Uninstall:
-    ``` sh
-    ./uninstall.sh
-    ```
+ 
+#### Uninstall 
+```
+pip3 uninstall ohmyrepos
+```
 
 ## Usage
 ``` sh
@@ -29,7 +34,7 @@ pull -d="/path/to/other/repos/" -s
 ```
 
 ## Configuration
-Just after the first execution of a command with `-s` or `--save` flag, the configuration file `.oh-my-repos.json` will be created inside your `$HOME` directory. 
+Just after the first execution of a command with `-s` (or `--save`) flag, the configuration file `.oh-my-repos.json` will be created inside your `$HOME` directory. 
 You can always manually edit your saved directories from there:
 ``` json
     {
