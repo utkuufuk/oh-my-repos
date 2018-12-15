@@ -13,9 +13,8 @@ CONFIG_PATH = str(Path.home()) + "/.oh-my-repos.json"
 if __name__ == '__main__':
     # read program arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dir', type=str, help='Root directory of Git repositories.')
-    parser.add_argument('--save', action='store_true',
-                        help='Whether to add the input directory to the existing set of saved directories.')
+    parser.add_argument('-d', '--dir', type=str, help='root directory of Git repositories')
+    parser.add_argument('-s', '--save', action='store_true', help='whether to add input path to saved directories')
     args = parser.parse_args()
 
     # get saved directories from configuration file if any
@@ -23,22 +22,29 @@ if __name__ == '__main__':
     try:
         savedDirs = {s for s in json.load(open(CONFIG_PATH))['dirs'] if s != ""}
     except FileNotFoundError:
-        print("Configuration file not found.")
+        print("Configuration file not found:", CONFIG_PATH)
 
-    if args.dir == None:
-        if args.save:
-            raise Exception("--save flag can only be used along with the --dir argument")
-        if len(savedDirs) == 0:
-            raise Exception("Could not find any saved directories in {0}".format(CONFIG_PATH))
-    else:
-        # convert input directory to absolute path & add it to the set of retrieved directories
-        inputDir = os.path.abspath(args.dir.replace("~", str(Path.home())))
-        savedDirs.add(inputDir)
-        if args.save:
-            # add the input directory to the existing set of saved directories in the configuration file
-            with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
-                json.dump({"dirs":list(savedDirs)}, f, indent=4, ensure_ascii=False)
-                print("Input directory appended to existing directories in configuration file:", inputDir)
+    try:
+        if args.dir == None:
+            if args.save:
+                raise UserWarning("--save flag can only be used along with the --dir argument")
+            if len(savedDirs) == 0:
+                raise UserWarning("Could not find any saved directories in {0}".format(CONFIG_PATH))
+        else:
+            # convert input directory to absolute path & add it to the set of retrieved directories
+            inputDir = os.path.abspath(args.dir.replace("~", str(Path.home())))
+            if not os.path.isdir(inputDir):
+                raise UserWarning("Invalid directory: {0}".format(inputDir))
+            savedDirs.add(inputDir)
+            if args.save:
+                # add the input directory to the existing set of saved directories in the configuration file
+                with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
+                    json.dump({"dirs":list(savedDirs)}, f, indent=4, ensure_ascii=False)
+                    print("Input directory appended to existing directories in configuration file:", inputDir)
+    except UserWarning as w:
+        print(str(w), "\n")
+        parser.print_help()
+        sys.exit(1)
 
     # delete .mrconfig if it exists
     try:
@@ -53,7 +59,6 @@ if __name__ == '__main__':
         for repo in repoDirs:
             os.chdir(repo)
             call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w'))
-            print("  ", repo)
 
     # run myrepos command from user home directory
     os.chdir(str(Path.home()))
