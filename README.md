@@ -27,8 +27,8 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
 pull
 
 # Pulls all git repos in the given path in addition to each path specified in ~/.oh-my-repos.json
-pull --dir="/path/to/other/repos/"
+pull -d="/path/to/other/repos/"
 
-# Same as above, except now it also inserts the given path in ~/.oh-my-repos.json
-pull --dir="/path/to/other/repos/" --save
+# Same as above, except now it also adds input path to saved directories in ~/.oh-my-repos.json
+pull -d="/path/to/other/repos/" -s
 ```
