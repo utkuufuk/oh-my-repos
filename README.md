@@ -28,10 +28,10 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
 pull
 
 # Pulls all git repos in the given path in addition to each path specified in ~/.ohmyrepos.json
-pull -d="/path/to/other/repos/"
+pull -d /path/to/other/repos/
 
 # Same as above, except now it also adds input path to saved directories in ~/.ohmyrepos.json
-pull -d="/path/to/other/repos/" -s
+pull -d /path/to/other/repos/ -s
 ```
 
 ## Configuration
