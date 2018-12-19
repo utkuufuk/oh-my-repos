@@ -24,13 +24,13 @@ A wrapper for the awesome [myrepos](https://myrepos.branchable.com/) tool that m
 
 ## Usage
 ``` sh
-# Pulls all git repos inside each path specified in ~/.ohmyrepos.json
+# Pulls all git repos in all dirs specified in ~/.ohmyrepos.json
 pull
 
-# Pulls all git repos in the given path in addition to each path specified in ~/.ohmyrepos.json
+# Pulls all git repos in input dir in addition to all dirs specified in ~/.ohmyrepos.json
 pull -d /path/to/other/repos/
 
-# Same as above, except now it also adds input path to saved directories in ~/.ohmyrepos.json
+# Same as above, except now it also adds input dir to saved dirs in ~/.ohmyrepos.json
 pull -d /path/to/other/repos/ -s
 ```
 
