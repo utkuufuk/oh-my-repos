@@ -6,7 +6,6 @@ import json
 import sys
 import os
 
-CONCURRENT_JOBS = 5
 TIMEOUT_SECS = 15
 CONFIG_PATH = str(Path.home()) + "/.ohmyrepos.json"
 
@@ -62,12 +61,11 @@ def main():
 
     # run myrepos command from user home directory
     os.chdir(str(Path.home()))
-    process = Popen("mr -j{0} update".format(CONCURRENT_JOBS).split())
+    process = Popen("mr -j{0} update".format(len(repoDirs)).split())
     try:
         process.communicate(timeout=TIMEOUT_SECS)
     except:
         process.kill()
         process.communicate()
-
 if __name__ == '__main__':
     main()
