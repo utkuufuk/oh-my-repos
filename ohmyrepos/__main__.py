@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 from pathlib import Path
-from subprocess import Popen, call, PIPE, STDOUT
+from subprocess import Popen, call, PIPE, STDOUT, TimeoutExpired
 import argparse
 import json
 import sys
 import os
 
-TIMEOUT_SECS = 15
+TIMEOUT_SECS = 20
 CONFIG_PATH = str(Path.home()) + "/.ohmyrepos.json"
 
 def main():
@@ -64,8 +64,12 @@ def main():
     process = Popen("mr -j{0} update".format(len(repoDirs)).split())
     try:
         process.communicate(timeout=TIMEOUT_SECS)
-    except:
+    except TimeoutExpired:
+        print("Process timed out.", file=sys.stderr)
         process.kill()
-        process.communicate()
+    except Exception as e:
+        print(e, file=sys.stderr)
+        process.kill()
+
 if __name__ == '__main__':
     main()
