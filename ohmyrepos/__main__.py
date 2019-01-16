@@ -6,7 +6,7 @@ import json
 import sys
 import os
 
-TIMEOUT_SECS = 20
+TIMEOUT_SECS = 60
 CONFIG_PATH = str(Path.home()) + "/.ohmyrepos.json"
 
 def main():
