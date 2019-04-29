@@ -51,13 +51,19 @@ def main():
     except OSError:
         pass
 
-    # discover & register repositories
-    for path in savedPaths:
-        print("\nDiscovering repositories in", path)
-        repos = [f.path for f in os.scandir(path) if f.is_dir() and os.path.isdir(f.path + "/.git")]
-        for repo in repos:
-            os.chdir(repo)
-            call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w'))
+    try:
+        # discover & register repositories
+        for path in savedPaths:
+            if not os.path.isdir(path):
+                raise FileNotFoundError("Directory not found: {0}\nCheck config file: {1}".format(path, CONFIG_PATH))
+            print("\nDiscovering repositories in", path)
+            repos = [f.path for f in os.scandir(path) if f.is_dir() and os.path.isdir(f.path + "/.git")]
+            for repo in repos:
+                os.chdir(repo)
+                call(['mr', 'register'], stderr=STDOUT, stdout = open(os.devnull, 'w'))
+    except FileNotFoundError as e:
+        print(str(e), "\n")
+        return
 
     # run myrepos command from user home directory
     os.chdir(str(Path.home()))
